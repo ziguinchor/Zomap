@@ -1,19 +1,14 @@
-import os
+import os , random
 
-def makeCommits (days : int):
-    if days < 1:
-        os.system('git push')
-    else:
-        dates = f"{days} days ago"
-        with open('data.txt', 'a') as file:
-            file.write(f'{dates} <- this was the commit for the day!!\n')
-        
-        # staging 
-        os.system('git add data.txt')
+for i in range(200):
+    d = str(i) + 'days ago'
+    rand = random.randrange(1, 12)
+    with open('test.txt','a') as file:
+        file.write(d+'\n')
+    os.system('git add test.txt')
+    os.system('git commit --date=" 2020-'+str(rand)+'-'+d+'" -m 1')
+os.system('git push -u origin main')
 
-        # commit 
-        os.system('git commit --date="'+ dates +'" -m "First commit for the day!"')
-
-        return days * makeCommits(days - 1)
-
-makeCommits(965)
+#git commit --amend --no-edit --date="Fri Nov 6 20:00:00 2015 -0600" 
+#git fetch origin master
+#git rebase origin/master
